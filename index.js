@@ -1,4 +1,20 @@
+require('dotenv').config();
 var inquirer = require('inquirer');
+const { Pool } = require('pg');
+
+console.log(process.env.PASSWORD);
+
+const pool = new Pool(
+    {
+        user: process.env.USER,
+        password: process.env.PASSWORD,
+        host: process.env.HOST,
+        database: process.env.DATABASE
+    },
+)
+
+pool.connect();
+
 
 const runInq = async () => {
     let answer
@@ -63,7 +79,6 @@ const runInq = async () => {
             break
 
         default:
-            console.log('Quitting Program');
     }
     answer = await inquirer.prompt(question);
     console.log(answer);
